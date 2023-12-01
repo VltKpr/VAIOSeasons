@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #A6CAF0;
+    }
+    #background-layer {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: -1;
+      background-position: center bottom +15%; /* Center the background image */
+    }
+  </style>
+</head>
+<body onload="initSetup()">
+
+  <div id="background-layer"></div>
+
+  <script>
+    let basepath = "C:/Windows/Web/Sony/VAIO HTML Wallpaper 2"; // Set the base path for images
+    let screen_width = 1280;
+    let screen_height = 1024;
+    let color_depth = 24;
+
+    // Other variable definitions...
+    //
+    // definition for base folder
+    //
+    //// folder name containing background image
+    let folder_name_by_size = basepath + '/' + screen_width + 'x' + screen_height
+		    + '/' + color_depth + 'bit';
+
+    //
+    // Definition for season
+    //
+    //// Season ID
+    let season_id_spring = 0;
+    let season_id_summer = 1;
+    let season_id_autumn = 2;
+    let season_id_winter = 3;
+    let season_id_unknown = -1;
+
+    //// Season definition
+    let start_month_spring = 3;	// Spring starts from Mar.
+    let start_month_summer = 6;	// Summer starts from Jun.
+    let start_month_autumn = 9;	// Autumn starts from Sept.
+    let start_month_winter = 12;	// Winter starts from Dec.
+
+    //// Folder name of each season
+    let season_name = ["spring", "summer", "autumn", "winter"];
+
+    //
+    // Definition for morning, daytime, night...
+    //
+    //// Time period ID
+    let time_id_morning = 0;
+    let time_id_daytime = 1;
+    let time_id_night = 2;
+    let time_id_unknown = -1;
+
+    // Time definition
+    let start_time_morning = 3;
+    let start_time_daytime = 11;
+    let start_time_night = 19;
+
+    // file name for each time
+    let file_name_by_time = ["morning.png", "daytime.png", "night.png"];
+
+    //
+    // special day
+    //
+    let special_day_month = 7;
+    let special_day_day = 1;
+
+    let special_day_image_url = folder_name_by_size + '/'
+	    	+ "bg" + color_depth + "bit"
+	    	+ screen_width + 'x' + screen_height
+	    	+ '-anniversary.png'
+
+    let special_day_flag = 0;
+
+    // Update interval (ms)
+    let update_interval = 30000;
+
+    // current image number
+    let previous_time = -1;
+    let previous_date = -1;
+    let previous_month = -1;
+    let previous_period = time_id_unknown;
+    let previous_season = season_id_unknown;
+
+    function initSetup() {
+      setBG();
+      setInterval(setBG, update_interval);
+    }
+
+    function setBG() {
+      let now = new Date();
+      let hour = now.getHours();
+      let month = now.getMonth() + 1;
+      let date = now.getDate();
+
+      // Rest of the logic for setting background image...
+
+      // Example logic for setting background image based on time, season, special day
+      let backgroundImageURL = determineBackground(hour, month, date);
+
+      document.getElementById("background-layer").style.backgroundImage = "url('" + backgroundImageURL + "')";
+    }
+
+    function determineBackground(hour, month, date) {
+      // Logic for determining background image URL based on time, season, and special day
+      // Replace this with your logic using the provided variables
+
+      // Example logic:
+      if (month === special_day_month && date === special_day_day) {
+        return special_day_image_url;
+      } else {
+        // Replace with logic for setting different backgrounds based on time and season
+        return getBackgroundURLForTimeAndSeason(hour, month);
+      }
+    }
+
+    function getBackgroundURLForTimeAndSeason(hour, month) {
+      // Logic for determining background URL based on time and season
+      // Replace this with your logic using the provided variables
+
+      // Example logic:
+      let season = getSeason(month);
+      let period = getTimePeriod(hour);
+
+      return folder_name_by_size + '/' + 'bg' + color_depth + 'bit' + screen_width + 'x' + screen_height + '-' + season_name[season] + '-' + file_name_by_time[period];
+    }
+
+    function getSeason(month) {
+      // Logic for determining season based on month
+      // Replace this with your logic using the provided variables
+
+      // Example logic:
+      if (month >= start_month_spring && month < start_month_summer) {
+        return season_id_spring;
+      } else if (month >= start_month_summer && month < start_month_autumn) {
+        return season_id_summer;
+      } else if (month >= start_month_autumn && month < start_month_winter) {
+        return season_id_autumn;
+      } else {
+        return season_id_winter;
+      }
+    }
+
+    function getTimePeriod(hour) {
+      // Logic for determining time period based on hour
+      // Replace this with your logic using the provided variables
+
+      // Example logic:
+      if (hour >= start_time_morning && hour < start_time_daytime) {
+        return time_id_morning;
+      } else if (hour >= start_time_daytime && hour < start_time_night) {
+        return time_id_daytime;
+      } else {
+        return time_id_night;
+      }
+    }
+  </script>
+</body>
+</html>
