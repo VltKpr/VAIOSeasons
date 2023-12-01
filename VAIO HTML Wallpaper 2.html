@@ -18,7 +18,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       z-index: -1;
-      background-position: center bottom +15%; /* Center the background image */
+      background-position: center bottom +15%; /* Center the background image and adjusts image offset to feature the VAIO logo in an attractive spot for 16:9 widescreens */
     }
   </style>
 </head>
@@ -111,31 +111,22 @@
       let date = now.getDate();
 
       // Rest of the logic for setting background image...
-
-      // Example logic for setting background image based on time, season, special day
       let backgroundImageURL = determineBackground(hour, month, date);
-
       document.getElementById("background-layer").style.backgroundImage = "url('" + backgroundImageURL + "')";
     }
 
     function determineBackground(hour, month, date) {
-      // Logic for determining background image URL based on time, season, and special day
-      // Replace this with your logic using the provided variables
-
-      // Example logic:
+      // Logic for determining if special day
       if (month === special_day_month && date === special_day_day) {
         return special_day_image_url;
       } else {
-        // Replace with logic for setting different backgrounds based on time and season
+        // Logic for setting different backgrounds based on time and season
         return getBackgroundURLForTimeAndSeason(hour, month);
       }
     }
 
     function getBackgroundURLForTimeAndSeason(hour, month) {
       // Logic for determining background URL based on time and season
-      // Replace this with your logic using the provided variables
-
-      // Example logic:
       let season = getSeason(month);
       let period = getTimePeriod(hour);
 
@@ -144,9 +135,6 @@
 
     function getSeason(month) {
       // Logic for determining season based on month
-      // Replace this with your logic using the provided variables
-
-      // Example logic:
       if (month >= start_month_spring && month < start_month_summer) {
         return season_id_spring;
       } else if (month >= start_month_summer && month < start_month_autumn) {
@@ -160,9 +148,6 @@
 
     function getTimePeriod(hour) {
       // Logic for determining time period based on hour
-      // Replace this with your logic using the provided variables
-
-      // Example logic:
       if (hour >= start_time_morning && hour < start_time_daytime) {
         return time_id_morning;
       } else if (hour >= start_time_daytime && hour < start_time_night) {
